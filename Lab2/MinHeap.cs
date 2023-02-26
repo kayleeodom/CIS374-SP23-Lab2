@@ -147,14 +147,16 @@ namespace Lab2
             {
                 int parentIndex = (index - 1) / 2;
 
-                if (array[index].CompareTo(array[parentIndex]) == -1)
+                if (array[index].CompareTo(array[parentIndex]) == 1)
                 { 
                     return;
                 }
 
                 else
                 {
-                    Swap(index, Count - 1);
+                    Swap(index, parentIndex);
+
+                    index = parentIndex;
                 }
             }
             //throw new NotImplementedException();
@@ -164,6 +166,17 @@ namespace Lab2
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
+            //while (index > 0)
+            //{
+             //   int left = 2 * index + 1;
+             //   int right = 2 * index + 2;
+                
+             //   while(left.CompareTo(index) == -1)
+             //   {
+             //       int maxValue = value;
+            //    }
+                
+            //}
             throw new NotImplementedException();
         }
 

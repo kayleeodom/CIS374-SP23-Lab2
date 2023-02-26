@@ -147,18 +147,18 @@ namespace Lab2
             {
                 int parentIndex = (index - 1) / 2;
 
-                if (array[index].CompareTo(array[parentIndex]) == 1)
+                if (array[index].CompareTo(array[parentIndex]) == -1)
                 {
                     return;
                 }
 
                 else
                 {
-                    Swap(index, Count - 1);
+                    Swap(index, parentIndex);
+
+                    index = parentIndex;
                 }
             }
-
-            
 
         }
 
@@ -166,7 +166,42 @@ namespace Lab2
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
-            throw new NotImplementedException();
+            while (index > 0)
+            {
+                int childIndex = 2 * index + 1;
+                int value = index;
+
+                while (array[childIndex].CompareTo(array[Capacity]) == 0)
+                {
+                    int maxValue = value;
+                    int maxIndex = -1;
+                    int i = 0;
+                    while (i < maxValue)
+                    {
+                        if(i < 2 && i + childIndex < array.Length)
+                        //if (array[i + childIndex].CompareTo(array[childIndex + i]) == 0)
+                        {
+                            maxValue = childIndex + i;
+                            maxIndex = i + childIndex;
+                        }
+                        i++;
+                    }
+                    if (maxValue == value)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        Swap(index, maxIndex);
+
+                        index = maxIndex;
+                        childIndex = 2 * index + 1;
+                    }
+                }
+
+            }
+
+            //throw new NotImplementedException();
         }
 
         // DONE
