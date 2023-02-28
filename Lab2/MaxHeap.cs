@@ -107,15 +107,20 @@ namespace Lab2
         public T ExtractMin()
         {
             // confused
-            //if (IsEmpty)
-            //{
-            //    throw new Exception("Empty Heap");
-            //}
+            if (IsEmpty)
+            {
+                throw new Exception("Empty Heap");
+            }
             // linear search
-            //T min = array[0];
+            T min = array[array.Length / 2];
 
-            //return min;
-            throw new NotImplementedException();
+            for (int i = 1 + array.Length / 2; i.CompareTo( array.Length) == -1; i++)
+            {
+                min = array[i];
+            }
+
+            return min;
+            //throw new NotImplementedException();
         }
 
         // DONE
@@ -145,7 +150,8 @@ namespace Lab2
         {
             while (index > 0)
             {
-                int parentIndex = (index - 1) / 2;
+                int parentIndex = Parent(index);
+                
 
                 if (array[index].CompareTo(array[parentIndex]) == -1)
                 {
@@ -168,40 +174,39 @@ namespace Lab2
         {
             while (index > 0)
             {
-                int childIndex = 2 * index + 1;
-                int value = index;
+                int right = RightChild(index);
+                int left = LeftChild(index);
+                int lastposition = Count - 1;
 
-                while (array[childIndex].CompareTo(array[Capacity]) == 0)
+                if (left == lastposition && array[index].CompareTo(array[left]) == -1)
                 {
-                    int maxValue = value;
-                    int maxIndex = -1;
-                    int i = 0;
-                    while (i < maxValue)
-                    {
-                        if(i < 2 && i + childIndex < array.Length)
-                        //if (array[i + childIndex].CompareTo(array[childIndex + i]) == 0)
-                        {
-                            maxValue = childIndex + i;
-                            maxIndex = i + childIndex;
-                        }
-                        i++;
-                    }
-                    if (maxValue == value)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        Swap(index, maxIndex);
-
-                        index = maxIndex;
-                        childIndex = 2 * index + 1;
-                    }
+                    Swap(index, left);
+                    index = left;
+                    return;
                 }
-
+                if (right == lastposition && array[index].CompareTo(array[right]) == -1)
+                {
+                    Swap(index, right);
+                    index = right;
+                    return;
+                }
+                if (left.CompareTo(lastposition) < 0 || right.CompareTo(lastposition) == -1)
+                {
+                    return;
+                }
+                if (array[left].CompareTo(array[right]) > 0 && array[index].CompareTo(array[left]) == -1)
+                {
+                    Swap(index, left);
+                    index = left;
+                    TrickleDown(left);
+                }
+                else if (array[index].CompareTo(array[right]) == -1)
+                {
+                    Swap(index, right);
+                    index = right;
+                    TrickleDown(right);
+                }
             }
-
-            //throw new NotImplementedException();
         }
 
         // DONE

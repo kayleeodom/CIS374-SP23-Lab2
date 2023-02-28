@@ -80,16 +80,21 @@ namespace Lab2
         /// </summary>
         public T ExtractMax()
         {
-            //if (IsEmpty)
-            //{
-            //    throw new Exception("Empty Heap");
-            //}
+            if (IsEmpty)
+            {
+                throw new Exception("Empty Heap");
+            }
             // linear search
-            //T max = array[0];
+            T max = array[0];
 
-            //return max;
+            for(int i = 1; i < array.Length; i++)
+            {
+                max = array[i];
+            }
 
-            throw new NotImplementedException();
+            return max;
+
+            //throw new NotImplementedException();
         }
 
         // DONE
@@ -145,7 +150,7 @@ namespace Lab2
         {
             while(index > 0)
             {
-                int parentIndex = (index - 1) / 2;
+                int parentIndex = Parent(index);
 
                 if (array[index].CompareTo(array[parentIndex]) == 1)
                 { 
@@ -159,25 +164,48 @@ namespace Lab2
                     index = parentIndex;
                 }
             }
-            //throw new NotImplementedException();
         }
 
         // TODO
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
-            //while (index > 0)
-            //{
-             //   int left = 2 * index + 1;
-             //   int right = 2 * index + 2;
-                
-             //   while(left.CompareTo(index) == -1)
-             //   {
-             //       int maxValue = value;
-            //    }
-                
-            //}
-            throw new NotImplementedException();
+            while (index > 0)
+            {
+                int right = RightChild(index);
+                int left = LeftChild(index);
+                int lastposition = Count - 1;
+
+                if(left == lastposition && array[index].CompareTo(array[left]) < 0)
+                {
+                    Swap(index, left);
+                    index = left;
+                    return;
+                }
+                if(right == lastposition && array[index].CompareTo(array[right]) < 0)
+                {
+                    Swap(index, right);
+                    index = right;
+                    return;
+                }
+                if (left.CompareTo(lastposition) < 0 || right.CompareTo(lastposition) < 0)
+                {
+                    return;
+                }
+                if (array[left].CompareTo(array[right]) > 0 && array[index].CompareTo(array[left]) < 0)
+                {
+                    Swap(index, left);
+                    index = left;
+                    TrickleDown(left);
+                }
+                else if (array[index].CompareTo(array[right]) < 0)
+                {
+                    Swap(index, right);
+                    index = right;
+                    TrickleDown(right);
+                }
+            }
+            //throw new NotImplementedException();
         }
 
         // DONE
