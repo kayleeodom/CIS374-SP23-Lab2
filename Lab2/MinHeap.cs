@@ -145,6 +145,39 @@ namespace Lab2
         }
 
         // TODO
+        /// <summary>
+        /// Updates the first element with the given value from the heap.
+        /// Time complexity: O( ? )
+        /// </summary>
+        public void Update(T oldValue, T newValue)
+        {
+
+            throw new NotImplementedException();
+
+        }
+
+        // TODO
+        /// <summary>
+        /// Removes the first element with the given value from the heap.
+        /// Time complexity: O( ? )
+        /// </summary>
+        public void Remove(T value)
+        {
+
+            for(int i = 0; i < Count - 1;  i++)
+            {
+                if (array[i].CompareTo(value) == 0)
+                {
+                    //array[i] == array[Count - 1];
+                    Count--;
+                    TrickleDown(i);
+                    break;
+                }
+            }
+
+        }
+
+        // TODO
         // Time Complexity: O( log(n) )
         private void TrickleUp(int index)
         {
@@ -172,38 +205,41 @@ namespace Lab2
         {
             while (index > 0)
             {
+                int minIndex;
+                int tmp;
                 int right = RightChild(index);
                 int left = LeftChild(index);
                 int lastposition = Count - 1;
 
-                if(left == lastposition && array[index].CompareTo(array[left]) < 0)
+                if(right >= lastposition)
                 {
-                    Swap(index, left);
-                    index = left;
-                    return;
+                    if(left >= lastposition)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        minIndex = left;
+                    }
                 }
-                if(right == lastposition && array[index].CompareTo(array[right]) < 0)
+                else
                 {
-                    Swap(index, right);
-                    index = right;
-                    return;
+                    if (array[left].CompareTo(array[right]) == 0)
+                    {
+                        minIndex = left;
+                    }
+                    else
+                    {
+                        minIndex = right;
+                    }
                 }
-                if (left.CompareTo(lastposition) < 0 || right.CompareTo(lastposition) < 0)
+                if (array[index].CompareTo(array[minIndex]) == 1)
                 {
-                    return;
+                    Swap(minIndex, index);
+                    minIndex = index;
+                    TrickleDown(minIndex);
                 }
-                if (array[left].CompareTo(array[right]) > 0 && array[index].CompareTo(array[left]) < 0)
-                {
-                    Swap(index, left);
-                    index = left;
-                    TrickleDown(left);
-                }
-                else if (array[index].CompareTo(array[right]) < 0)
-                {
-                    Swap(index, right);
-                    index = right;
-                    TrickleDown(right);
-                }
+
             }
             //throw new NotImplementedException();
         }

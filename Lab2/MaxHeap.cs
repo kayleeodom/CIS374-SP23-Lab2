@@ -145,6 +145,40 @@ namespace Lab2
         }
 
         // TODO
+        /// <summary>
+        /// Updates the first element with the given value from the heap.
+        /// Time complexity: O( ? )
+        /// </summary>
+        public void Update(T oldValue, T newValue)
+        {
+
+            //if (newValue.CompareTo(oldValue) == 0)
+            //{
+            //    TrickleDown(oldValue);
+            //}
+            //else
+            //{
+            //    TrickleUp(newValue);
+            //}
+            throw new NotImplementedException();
+
+        }
+
+        // TODO
+        /// <summary>
+        /// Removes the first element with the given value from the heap.
+        /// Time complexity: O( ? )
+        /// </summary>
+        public void Remove(T value)
+        {
+
+            //Swap(Count - 1, value);
+            //Count--;
+            //TrickleDown(value);
+            throw new NotImplementedException();
+        }
+
+        // TODO
         // Time Complexity: O( log(n) )
         private void TrickleUp(int index)
         {
@@ -176,25 +210,25 @@ namespace Lab2
             {
                 int right = RightChild(index);
                 int left = LeftChild(index);
-                int lastposition = Count - 1;
+                T lastposition = array[Count - 1];
 
-                if (left == lastposition && array[index].CompareTo(array[left]) == -1)
+                if (left.CompareTo(lastposition) == 0 && array[index].CompareTo(array[left]) < 0)
                 {
                     Swap(index, left);
                     index = left;
                     return;
                 }
-                if (right == lastposition && array[index].CompareTo(array[right]) == -1)
+                if (right.CompareTo(lastposition) == 0 && array[index].CompareTo(array[right]) == -1)
                 {
                     Swap(index, right);
                     index = right;
                     return;
                 }
-                if (left.CompareTo(lastposition) < 0 || right.CompareTo(lastposition) == -1)
+                if (left.CompareTo(lastposition) == 1 || right.CompareTo(lastposition) == 1)
                 {
                     return;
                 }
-                if (array[left].CompareTo(array[right]) > 0 && array[index].CompareTo(array[left]) == -1)
+                if (array[left].CompareTo(array[right]) == 1 && array[index].CompareTo(array[left]) == -1)
                 {
                     Swap(index, left);
                     index = left;
