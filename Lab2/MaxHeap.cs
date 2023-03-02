@@ -32,7 +32,7 @@ namespace Lab2
 
         /// <summary>
         /// Returns the min item but does NOT remove it.
-        /// Time complexity: O(?).
+        /// Time complexity: O(1).
         /// </summary>
         public T Peek()
         {
@@ -47,7 +47,7 @@ namespace Lab2
         // DONE
         /// <summary>
         /// Adds given item to the heap.
-        /// Time complexity: O(?).
+        /// Time complexity: O(log(n)).
         /// </summary>
         public void Add(T item)
         {
@@ -75,7 +75,7 @@ namespace Lab2
         // DONE
         /// <summary>
         /// Removes and returns the min item in the max-heap.
-        /// Time complexity: O( N ).
+        /// Time complexity: O(log(n)).
         /// </summary>
         public T ExtractMax()
         {
@@ -99,7 +99,7 @@ namespace Lab2
 
         }
 
-        // TODO
+        // DONE
         /// <summary>
         /// Removes and returns the max item in the max-heap.
         /// Time ctexity: O( log(n) ).
@@ -132,9 +132,9 @@ namespace Lab2
         {
             // linear search
 
-            foreach (var item in array)
+            for(int i = 0; i < Count; i++)
             {
-                if (item.CompareTo(value) == 0)
+                if (array[i].CompareTo(value) == 0)
                 {
                     return true;
                 }
@@ -167,18 +167,24 @@ namespace Lab2
         // TODO
         /// <summary>
         /// Removes the first element with the given value from the heap.
-        /// Time complexity: O( ? )
+        /// Time complexity: O(log(n))
         /// </summary>
         public void Remove(T value)
         {
 
-            //Swap(Count - 1, value);
-            //Count--;
-            //TrickleDown(value);
-            throw new NotImplementedException();
+            for (int i = 0; i < Count - 1; i++)
+            {
+                if (array[i].CompareTo(value) == 0)
+                {
+                    //array[i] == array[Count - 1];
+                    Count--;
+                    TrickleDown(i);
+                    break;
+                }
+            }
         }
 
-        // TODO
+        // DONE
         // Time Complexity: O( log(n) )
         private void TrickleUp(int index)
         {
@@ -187,7 +193,7 @@ namespace Lab2
                 int parentIndex = Parent(index);
                 
 
-                if (array[index].CompareTo(array[parentIndex]) == -1)
+                if (array[index].CompareTo(array[parentIndex]) <= 0)
                 {
                     return;
                 }
@@ -202,43 +208,36 @@ namespace Lab2
 
         }
 
-        // TODO
+        // DONE
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
-            while (index > 0)
-            {
-                int right = RightChild(index);
-                int left = LeftChild(index);
-                T lastposition = array[Count - 1];
+            int childIndex = LeftChild(index);
+            T value = array[index];
 
-                if (left.CompareTo(lastposition) == 0 && array[index].CompareTo(array[left]) < 0)
+            while(childIndex < Count)
+            {
+                T maxValue = value;
+                int maxIndex = -1;
+                int i = 0;
+                while(i < 2 && i + childIndex < Count)
                 {
-                    Swap(index, left);
-                    index = left;
+                    if (array[i + childIndex].CompareTo(maxValue) == 1)
+                    {
+                        maxValue = array[i + childIndex];
+                        maxIndex = i +childIndex;
+                    }
+                    i++;
+                }
+                if(maxValue.CompareTo(value) == 0)
+                {
                     return;
                 }
-                if (right.CompareTo(lastposition) == 0 && array[index].CompareTo(array[right]) == -1)
+                else
                 {
-                    Swap(index, right);
-                    index = right;
-                    return;
-                }
-                if (left.CompareTo(lastposition) == 1 || right.CompareTo(lastposition) == 1)
-                {
-                    return;
-                }
-                if (array[left].CompareTo(array[right]) == 1 && array[index].CompareTo(array[left]) == -1)
-                {
-                    Swap(index, left);
-                    index = left;
-                    TrickleDown(left);
-                }
-                else if (array[index].CompareTo(array[right]) == -1)
-                {
-                    Swap(index, right);
-                    index = right;
-                    TrickleDown(right);
+                    Swap(index, maxIndex);
+                    index = maxIndex;
+                    childIndex = 2 * index + 1;
                 }
             }
         }

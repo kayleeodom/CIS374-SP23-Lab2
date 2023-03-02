@@ -33,7 +33,7 @@ namespace Lab2
 
         /// <summary>
         /// Returns the min item but does NOT remove it.
-        /// Time complexity: O(?).
+        /// Time complexity: O(1).
         /// </summary>
         public T Peek()
         {
@@ -48,7 +48,7 @@ namespace Lab2
         // DONE
         /// <summary>
         /// Adds given item to the heap.
-        /// Time complexity: O(?).
+        /// Time complexity: O(log(n)).
         /// </summary>
         public void Add(T item)
         {
@@ -65,7 +65,6 @@ namespace Lab2
             {
                 DoubleArrayCapacity();
             }
-
         }
 
         public T Extract()
@@ -132,9 +131,9 @@ namespace Lab2
         {
             // linear search
 
-            foreach (var item in array)
+            for (int i = 0; i < Count; i++)
             {
-                if (item.CompareTo(value) == 0)
+                if (array[i].CompareTo(value) == 0)
                 {
                     return true;
                 }
@@ -159,7 +158,7 @@ namespace Lab2
         // TODO
         /// <summary>
         /// Removes the first element with the given value from the heap.
-        /// Time complexity: O( ? )
+        /// Time complexity: O(log(n))
         /// </summary>
         public void Remove(T value)
         {
@@ -181,12 +180,13 @@ namespace Lab2
         // Time Complexity: O( log(n) )
         private void TrickleUp(int index)
         {
-            while(index > 0)
+            while (index > 0)
             {
                 int parentIndex = Parent(index);
 
+
                 if (array[index].CompareTo(array[parentIndex]) == 1)
-                { 
+                {
                     return;
                 }
 
@@ -203,45 +203,34 @@ namespace Lab2
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
-            while (index > 0)
-            {
-                int minIndex;
-                int tmp;
-                int right = RightChild(index);
-                int left = LeftChild(index);
-                int lastposition = Count - 1;
+            int childIndex = LeftChild(index);
+            T value = array[index];
 
-                if(right >= lastposition)
+            while (childIndex < Count)
+            {
+                T maxValue = value;
+                int maxIndex = -1;
+                int i = 0;
+                while (i < 2 && i + childIndex < Count)
                 {
-                    if(left >= lastposition)
+                    if (array[i + childIndex].CompareTo(maxValue) == -1)
                     {
-                        return;
+                        maxValue = array[i + childIndex];
+                        maxIndex = i + childIndex;
                     }
-                    else
-                    {
-                        minIndex = left;
-                    }
+                    i++;
+                }
+                if (maxValue.CompareTo(value) == 0)
+                {
+                    return;
                 }
                 else
                 {
-                    if (array[left].CompareTo(array[right]) == 0)
-                    {
-                        minIndex = left;
-                    }
-                    else
-                    {
-                        minIndex = right;
-                    }
+                    Swap(index, maxIndex);
+                    index = maxIndex;
+                    childIndex = 2 * index + 1;
                 }
-                if (array[index].CompareTo(array[minIndex]) == 1)
-                {
-                    Swap(minIndex, index);
-                    minIndex = index;
-                    TrickleDown(minIndex);
-                }
-
             }
-            //throw new NotImplementedException();
         }
 
         // DONE
