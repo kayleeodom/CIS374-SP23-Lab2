@@ -75,7 +75,7 @@ namespace Lab2
         // TODO
         /// <summary>
         /// Removes and returns the max item in the min-heap.
-        /// Time complexity: O( N ).
+        /// Time complexity: O( N )
         /// </summary>
         public T ExtractMax()
         {
@@ -99,7 +99,7 @@ namespace Lab2
         // DONE
         /// <summary>
         /// Removes and returns the min item in the min-heap.
-        /// Time ctexity: O( log(n) ).
+        /// Time complexity: O( log(n) )
         /// </summary>
         public T ExtractMin()
         {
@@ -125,7 +125,7 @@ namespace Lab2
         // Done
         /// <summary>
         /// Returns true if the heap contains the given value; otherwise false.
-        /// Time complexity: O( N ).
+        /// Time complexity: O( N )
         /// </summary>
         public bool Contains(T value)
         {
