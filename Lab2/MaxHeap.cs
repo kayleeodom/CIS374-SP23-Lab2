@@ -172,15 +172,17 @@ namespace Lab2
         public void Remove(T value)
         {
 
-            for (int i = 0; i < Count - 1; i++)
+            for (int i = 0; i > Count - 1; i++)
             {
                 if (array[i].CompareTo(value) == 0)
                 {
-                    //array[i] == array[Count - 1];
+                    array[i] = array[Count - 1];
+                    //i = Count - 1;
                     Swap(i, Count - 1);
+                    //i = Count - 1;
                     Count--;
                     TrickleDown(i);
-                    //break;
+                    //Remove(value);
                 }
             }
         }
