@@ -177,9 +177,10 @@ namespace Lab2
                 if (array[i].CompareTo(value) == 0)
                 {
                     //array[i] == array[Count - 1];
+                    Swap(i, Count - 1);
                     Count--;
                     TrickleDown(i);
-                    break;
+                    //break;
                 }
             }
         }
