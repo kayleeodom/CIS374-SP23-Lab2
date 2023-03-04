@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Lab2
 {
@@ -151,16 +152,26 @@ namespace Lab2
         /// </summary>
         public void Update(T oldValue, T newValue)
         {
-
-            //if (newValue.CompareTo(oldValue) == 0)
-            //{
-            //    TrickleDown(oldValue);
-            //}
-            //else
-            //{
-            //    TrickleUp(newValue);
-            //}
-            throw new NotImplementedException();
+            if (IsEmpty)
+            {
+                throw new Exception("Empty Heap");
+            }
+            if(array.Contains(oldValue))
+            {
+                Update(oldValue, newValue);
+                if(newValue.CompareTo(oldValue) == -1)
+                {
+                    TrickleUp(0);
+                }
+                else
+                {
+                    TrickleDown(0);
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
 
         }
 
@@ -172,19 +183,23 @@ namespace Lab2
         public void Remove(T value)
         {
 
-            for (int i = 0; i > Count - 1; i++)
+            for (int i = 0; i < Count - 1; i++)
             {
                 if (array[i].CompareTo(value) == 0)
                 {
-                    array[i] = array[Count - 1];
-                    //i = Count - 1;
                     Swap(i, Count - 1);
-                    //i = Count - 1;
+                    i = Count - 1;
+                    //array[i] = array[Count - 1];
                     Count--;
                     TrickleDown(i);
                     //Remove(value);
                 }
+                //else
+                //{ throw new Exception(); }
+                //throw new Exception();
             }
+            throw new Exception();
+            
         }
 
         // DONE
