@@ -158,7 +158,6 @@ namespace Lab2
             }
             if(array.Contains(oldValue))
             {
-                Update(oldValue, newValue);
                 if(newValue.CompareTo(oldValue) == -1)
                 {
                     TrickleUp(0);
@@ -168,10 +167,8 @@ namespace Lab2
                     TrickleDown(0);
                 }
             }
-            else
-            {
-                throw new Exception();
-            }
+            return;
+            
 
         }
 
@@ -198,7 +195,7 @@ namespace Lab2
                 //{ throw new Exception(); }
                 //throw new Exception();
             }
-            throw new Exception();
+            //throw new Exception();
             
         }
 

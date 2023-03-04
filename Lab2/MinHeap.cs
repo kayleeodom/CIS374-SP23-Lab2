@@ -148,11 +148,26 @@ namespace Lab2
         /// Updates the first element with the given value from the heap.
         /// Time complexity: O( ? )
         /// </summary>
-        public void Update(T currentValue, T newValue)
+        public void Update(T oldValue, T newValue)
         {
+            for (int i = 0; i < Count - 1; i++)
+            {
+                if (array[i].CompareTo(oldValue) == 0)
+                {
+                    Update(oldValue, newValue);
+                    Remove(oldValue);
+                    if (newValue.CompareTo(oldValue) == 1)
+                    {
+                        TrickleUp(i);
+                    }
+                    else
+                    {
+                        TrickleDown(i);
+                    }
 
-            throw new NotImplementedException();
-
+                }
+                
+            }
         }
 
         // TODO
@@ -162,22 +177,25 @@ namespace Lab2
         /// </summary>
         public void Remove(T value)
         {
+            
+
             for (int i = 0; i < Count - 1; i++)
             {
                 if (array[i].CompareTo(value) == 0)
                 {
-                    array[i] = array[Count - 1];
                     Swap(i, Count - 1);
+                    //array[i] = array[Count - 1];
                     i = Count - 1;
                     Count--;
                     TrickleDown(i);
+                    break;
                     //Remove(value);
                 }
                 //else
                 //{ throw new Exception(); }
                 //throw new Exception();
             }
-            throw new Exception();
+            //throw new Exception();
         }
 
         // TODO
