@@ -146,13 +146,13 @@ namespace Lab2
         // TODO
         /// <summary>
         /// Updates the first element with the given value from the heap.
-        /// Time complexity: O( ? )
+        /// Time complexity: O(log(n))
         /// </summary>
         public void Update(T oldValue, T newValue)
         {
-            if (IsEmpty)
+            if(IsEmpty)
             {
-                throw new Exception("Empty Heap");
+                throw new Exception();
             }
             else
             {
@@ -174,6 +174,7 @@ namespace Lab2
                     }
                 }
             }
+            
         }
 
         // TODO

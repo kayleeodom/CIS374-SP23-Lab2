@@ -148,7 +148,7 @@ namespace Lab2
         // TODO
         /// <summary>
         /// Updates the first element with the given value from the heap.
-        /// Time complexity: O( ? )
+        /// Time complexity: O(Log(n))
         /// </summary>
         public void Update(T oldValue, T newValue)
         {
@@ -160,11 +160,11 @@ namespace Lab2
             {
                 for (int i = 0; i < Count; i++)
                 {
+                    
                     if (array[i].CompareTo(oldValue) == 0)
                     {
                         array[i] = newValue;
                         Update(oldValue, newValue);
-                        //Remove(oldValue);
                         if (newValue.CompareTo(oldValue) == 1)
                         {
                             TrickleUp(i);
@@ -173,12 +173,10 @@ namespace Lab2
                         {
                             TrickleDown(i);
                         }
-                    }
+                    }  
                     
                 }
-                //throw new Exception();
             }
-            
         }
 
         // TODO
