@@ -150,23 +150,29 @@ namespace Lab2
         /// </summary>
         public void Update(T oldValue, T newValue)
         {
-            for (int i = 0; i < Count - 1; i++)
+            if (IsEmpty)
             {
-                if (array[i].CompareTo(oldValue) == 0)
+                throw new Exception("Empty Heap");
+            }
+            else
+            {
+                for (int i = 0; i < Count; i++)
                 {
-                    Update(oldValue, newValue);
-                    Remove(oldValue);
-                    if (newValue.CompareTo(oldValue) == 1)
+                    if (array[i].CompareTo(oldValue) == 0)
                     {
-                        TrickleUp(i);
+                        array[i] = newValue;
+                        Update(oldValue, newValue);
+                        //Remove(oldValue);
+                        if (newValue.CompareTo(oldValue) == -1)
+                        {
+                            TrickleUp(i);
+                        }
+                        else
+                        {
+                            TrickleDown(i);
+                        }
                     }
-                    else
-                    {
-                        TrickleDown(i);
-                    }
-
                 }
-                
             }
         }
 
@@ -177,25 +183,25 @@ namespace Lab2
         /// </summary>
         public void Remove(T value)
         {
-            
-
-            for (int i = 0; i < Count - 1; i++)
+            if(IsEmpty)
             {
-                if (array[i].CompareTo(value) == 0)
-                {
-                    Swap(i, Count - 1);
-                    //array[i] = array[Count - 1];
-                    i = Count - 1;
-                    Count--;
-                    TrickleDown(i);
-                    break;
-                    //Remove(value);
-                }
-                //else
-                //{ throw new Exception(); }
-                //throw new Exception();
+                throw new Exception("Empty Heap");
             }
-            //throw new Exception();
+            else
+            {
+                for (int i = 0; i < Count; i++)
+                {
+                    if (array[i].CompareTo(value) == 0)
+                    {
+                        //Swap(i, Count-1);
+                        array[i] = array[Count - 1];
+                        //i = Count-1;
+                        Count--;
+                        TrickleDown(i);
+                        //break;
+                    }
+                }
+            }
         }
 
         // TODO

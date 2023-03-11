@@ -356,6 +356,7 @@ namespace UnitTests
             Assert.IsTrue(heap0.Contains(250));
             Assert.AreEqual(250, heap0.Peek());
 
+
             Assert.ThrowsException<Exception>(() => heap0.Update(0, 10));
 
         }

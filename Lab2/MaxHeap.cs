@@ -156,20 +156,29 @@ namespace Lab2
             {
                 throw new Exception("Empty Heap");
             }
-            if(array.Contains(oldValue))
+            else
             {
-                if(newValue.CompareTo(oldValue) == -1)
+                for (int i = 0; i < Count; i++)
                 {
-                    TrickleUp(0);
+                    if (array[i].CompareTo(oldValue) == 0)
+                    {
+                        array[i] = newValue;
+                        Update(oldValue, newValue);
+                        //Remove(oldValue);
+                        if (newValue.CompareTo(oldValue) == 1)
+                        {
+                            TrickleUp(i);
+                        }
+                        else
+                        {
+                            TrickleDown(i);
+                        }
+                    }
+                    
                 }
-                else
-                {
-                    TrickleDown(0);
-                }
+                //throw new Exception();
             }
-            return;
             
-
         }
 
         // TODO
@@ -179,24 +188,26 @@ namespace Lab2
         /// </summary>
         public void Remove(T value)
         {
-
-            for (int i = 0; i < Count - 1; i++)
+            if (IsEmpty)
             {
-                if (array[i].CompareTo(value) == 0)
-                {
-                    Swap(i, Count - 1);
-                    i = Count - 1;
-                    //array[i] = array[Count - 1];
-                    Count--;
-                    TrickleDown(i);
-                    //Remove(value);
-                }
-                //else
-                //{ throw new Exception(); }
-                //throw new Exception();
+                throw new Exception("Empty Heap");
             }
-            //throw new Exception();
-            
+            else
+            {
+                for (int i = 0; i < Count; i++)
+                {
+                    if (array[i].CompareTo(value) == 0)
+                    {
+                        //Swap(i, Count-1);
+                        array[i] = array[Count - 1];
+                        //i = Count-1;
+                        Count--;
+                        TrickleDown(i);
+                        //break;
+                    }
+                }
+            }
+
         }
 
         // DONE
